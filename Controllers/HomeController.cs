@@ -1,4 +1,5 @@
 ﻿using ManageCollaborator.Models;
+using ManageCollaborator.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -20,6 +21,19 @@ namespace ManageCollaborator.Controllers
 
         public IActionResult Privacy()
         {
+            CompanyRepository companyRepository = new CompanyRepository();
+
+            var newCompany = new Company
+            {
+                CorporateName = "Empresa1",
+                CNPJ = "12.312.321-0001/00",
+                FantasyName = "FantasiaNome1",
+                CreationDate = DateTime.Now,
+                UpdateDate = DateTime.Now
+            };
+
+            companyRepository.InsertCompany(newCompany);
+
             return View();
         }
 
