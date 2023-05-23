@@ -1,3 +1,6 @@
+using ManageCollaborator.Context;
+using Microsoft.EntityFrameworkCore;
+
 namespace ManageCollaborator
 {
     public class Program
@@ -9,7 +12,16 @@ namespace ManageCollaborator
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                dbContext.Database.Migrate();
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
