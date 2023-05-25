@@ -22,7 +22,7 @@ namespace ManageCollaborator.Migrations
                     CorporateName = table.Column<string>(type: "TEXT", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DeleteDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    DeleteDate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,7 +40,7 @@ namespace ManageCollaborator.Migrations
                     CBO = table.Column<string>(type: "TEXT", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DeleteDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    DeleteDate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,7 +62,7 @@ namespace ManageCollaborator.Migrations
                     LayoffDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DeleteDate = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    DeleteDate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -81,6 +81,30 @@ namespace ManageCollaborator.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CollaboratorHistoric",
+                columns: table => new
+                {
+                    CollaboratorHistoricId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CollaboratorId = table.Column<int>(type: "INTEGER", nullable: false),
+                    OldPosition = table.Column<string>(type: "TEXT", nullable: false),
+                    NewPosition = table.Column<string>(type: "TEXT", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DeleteDate = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CollaboratorHistoric", x => x.CollaboratorHistoricId);
+                    table.ForeignKey(
+                        name: "FK_CollaboratorHistoric_Collaborator_CollaboratorId",
+                        column: x => x.CollaboratorId,
+                        principalTable: "Collaborator",
+                        principalColumn: "CollaboratorId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Collaborator_CompanyId",
                 table: "Collaborator",
@@ -90,11 +114,19 @@ namespace ManageCollaborator.Migrations
                 name: "IX_Collaborator_PositionId",
                 table: "Collaborator",
                 column: "PositionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CollaboratorHistoric_CollaboratorId",
+                table: "CollaboratorHistoric",
+                column: "CollaboratorId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "CollaboratorHistoric");
+
             migrationBuilder.DropTable(
                 name: "Collaborator");
 

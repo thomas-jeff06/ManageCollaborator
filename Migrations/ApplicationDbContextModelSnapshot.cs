@@ -36,7 +36,7 @@ namespace ManageCollaborator.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeleteDate")
+                    b.Property<DateTime?>("DeleteDate")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("LayoffDate")
@@ -65,6 +65,39 @@ namespace ManageCollaborator.Migrations
                     b.ToTable("Collaborator");
                 });
 
+            modelBuilder.Entity("ManageCollaborator.Models.CollaboratorHistoric", b =>
+                {
+                    b.Property<int>("CollaboratorHistoricId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CollaboratorId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeleteDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NewPosition")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OldPosition")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CollaboratorHistoricId");
+
+                    b.HasIndex("CollaboratorId");
+
+                    b.ToTable("CollaboratorHistoric");
+                });
+
             modelBuilder.Entity("ManageCollaborator.Models.Company", b =>
                 {
                     b.Property<int>("CompanyId")
@@ -82,7 +115,7 @@ namespace ManageCollaborator.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeleteDate")
+                    b.Property<DateTime?>("DeleteDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FantasyName")
@@ -110,7 +143,7 @@ namespace ManageCollaborator.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DeleteDate")
+                    b.Property<DateTime?>("DeleteDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -146,6 +179,17 @@ namespace ManageCollaborator.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("Position");
+                });
+
+            modelBuilder.Entity("ManageCollaborator.Models.CollaboratorHistoric", b =>
+                {
+                    b.HasOne("ManageCollaborator.Models.Collaborator", "collaborator")
+                        .WithMany()
+                        .HasForeignKey("CollaboratorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("collaborator");
                 });
 #pragma warning restore 612, 618
         }

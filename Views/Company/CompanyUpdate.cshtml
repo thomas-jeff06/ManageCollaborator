@@ -1,0 +1,47 @@
+﻿@model Company 
+@{
+    ViewData["Title"] = "Atualização de Empresa";
+}
+<div class="bg-body bodySettings">
+    <a class="btn btn-dark" asp-area="" asp-controller="Home" asp-action="ManageCompanyHome"><i class='bx bx-arrow-back'></i> Voltar</a>
+    <div class="d-grid gap-2 d-md-flex">
+
+        <h3 class="text-light">Data de criação:</h3>
+        <label>@Model.CreationDate.ToString("dd/MM/yyyy")</label>
+
+        <h3 class="text-light">Ultima Atualização:</h3>
+        <label>@Model.UpdateDate.ToString("dd/MM/yyyy")</label>
+
+        <h3 class="text-light">CNPJ:</h3>
+        <label>@Model.CNPJ</label>
+
+    </div>
+
+    <form asp-controller="Home" asp-action="UpdateCompany" method="post">
+        <div class="mb-3">
+            <label> Razão social: </label>
+            <input class="col-form-label" type="text" name="corporateName" value="@Model.CorporateName">
+        </div>
+
+        <div class="mb-3">
+            <label> Nome Fantasia: </label>
+            <input class="col-form-label" type="text" name="fantasyName" value="@Model.FantasyName">
+        </div>
+
+        <input type="hidden" name="companyId" value="@Model.CompanyId" />
+
+        <button class="btn btn-light" type="submit">Atualizar</button>
+    </form>
+    <a class="btn btn-danger" href="@Url.Action("DeleteCompany", "Home", new { companyId = Model.CompanyId })">Deletar Empresa</a>
+    <a class="btn btn-dark" href="@Url.Action("ChanceStatus", "Home", new { companyId = Model.CompanyId })">
+        Mudar Status Para:@if (Model.DeleteDate != null)
+        {
+            <span class="btn-outline-success">Ativo</span>
+        }
+        else
+        {
+            <span class="btn-outline-danger">Baixada</span>
+        }
+    </a>
+
+</div>

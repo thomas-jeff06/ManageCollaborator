@@ -1,4 +1,25 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function filterCompany() {
+    //if (event.keyCode === 13) {
+    //    event.preventDefault();
 
-// Write your JavaScript code.
+    //    var inputSearch = document.getElementById("inputSearch");
+    //    var valueInput = inputSearch.value;
+
+    //    companies = companies;
+
+    //    return companies
+
+    //    companyFilter.forEach(function (company) {
+    //        var row = bodyCompanyTable.insertRow();
+    //        var fantaseName = row.insertCell();
+    //        var nomeCell = row.insertCell();
+    //        var cnpjCell = row.insertCell();
+
+    //        fantaseName.textContent = row.insertCell;
+    //        nomeCell.textContent = empresa.Nome;
+    //        cnpjCell.textContent = empresa.CNPJ;
+    //    });
+
+    //    //
+    //}
+}
