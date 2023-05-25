@@ -1,0 +1,38 @@
+﻿@model ViewModel
+@{
+    ViewData["Title"] = "Novo Funcionario";
+}
+<div class="bg-body bodySettings">
+    <a class="btn btn-dark" href="@Url.Action("GetCollaborators", "Home",  new { companyId = Model.Company.CompanyId })"><i class='bx bx-arrow-back'></i> Voltar</a>
+
+    <h1>Novo Funcionario para empresa @Model.Company.CorporateName</h1>
+    <p style="display: none;" id="error-message"></p>
+
+    <form id="fomrInsert" asp-controller="Home" asp-action="InsertCollaborator" method="post">
+        <div class="mb-3">
+            <input class="col-form-label" type="text" name="NewCollaborator.Name" value="@Model.NewCollaborator.Name" placeholder="Nome" required>
+        </div>
+
+        <div class="mb-3">
+            <input class="col-form-label" type="date" id="dateInput" name="NewCollaborator.AdmissionDate" value="@Model.NewCollaborator.AdmissionDate" placeholder="Data de admissão" required>
+        </div>
+
+        <div class="mb-3">
+            <input class="col-form-label" type="text" id="cpfInput" name="NewCollaborator.CPF" value="@Model.NewCollaborator.CPF" placeholder="CPF" required>
+        </div>
+        <div class="mb-3">
+            <select class="form-select-lg col-form-label" aria-label="Default select example" name="ChoicePosition.PositionId">
+                <option selected disabled>Selecionar Cargo</option>
+                @foreach (var position in Model.Positions)
+                {
+                    <option value="@position.PositionId">@position.Name</option>
+                }
+            </select>
+        </div>
+
+        <input type="hidden" name="Company.CompanyId" value="@Model.Company.CompanyId"/>
+
+        <button onclick="validarCPF()" class="btn btn-success" type="submit">Registrar</button>
+    </form>
+
+</div>

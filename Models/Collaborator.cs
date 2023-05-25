@@ -8,8 +8,8 @@ namespace ManageCollaborator.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CollaboratorId { get; set; }
-        public Company Company { get; set; }
-        public Position Position { get; set; }
+        public int CompanyId { get; set; }
+        public int PositionId { get; set; }
         public string Name { get; set; }
         public string CPF { get; set; }
         public string Matricula { get; set; } 

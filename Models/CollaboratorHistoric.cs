@@ -8,7 +8,7 @@ namespace ManageCollaborator.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CollaboratorHistoricId { get; set; }
-        public Collaborator collaborator { get; set; }
+        public int collaboratorId { get; set; }
         public string OldPosition { get; set; }
         public string NewPosition { get; set; }
     }

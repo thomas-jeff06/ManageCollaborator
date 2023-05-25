@@ -1,8 +1,61 @@
-﻿@model List<Collaborator>
+﻿@model ViewModel
 
 @{
     ViewData["Title"] = "Controle de Colaboradores";
 }
 
-<h1>ManageCollaboratorHome</h1>
+<h1>Lista de Funcionarios de @Model.Company.CorporateName</h1>
+
+<a class="btn btn-dark" href="@Url.Action("ManageCompanyHome", "Home")"><i class='bx bx-arrow-back'></i> Voltar</a>
+
+<form asp-controller="Home" asp-action="FilterCollaborator" method="get">
+    <input type="text" name="input" placeholder="Pesquisar por CPF, Nome ou cargo">
+
+</form>
+
+<div>
+    <table class="table table-dark border-primary" id="companyTable">
+        <thead>
+            <tr>
+                <th class="name">Nome</th>
+                <th class="cpf">CPF</th>
+                <th class="matricula">Matricula</th>
+                <th class="position">Cargo</th>
+                <th class="admission-date">Data de inicio</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="bodyCompanyTable">
+            @for (int i = 0; i < Model.Collaborators.Count; i++)
+            {
+                var collaborator = Model.Collaborators[i];
+                <tr>
+                    <td class="fantasyName">@collaborator.Name</td>
+                    <td class="cnpj">@collaborator.CPF</td>
+                    <td class="name">@collaborator.Matricula</td>
+                    <td class="name">@Model.PositionsCollaborators[i].Name</td>
+                    <td class="name">@collaborator.AdmissionDate.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        @if (collaborator.LayoffDate == null)
+                        {
+                            <span class="btn-outline-success">Ativo</span>
+                        }
+                        else
+                        {
+                            <span class="btn-outline-danger">Baixada</span>
+                        }
+                    </td>
+                    <td class="Max-Width180">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a class="btn btn-outline-warning" href="@Url.Action("UpdateCollaboratorPage", "Home", new { collaboratorId = collaborator.CollaboratorId })">Alterar Funcionario</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a class="btn btn-info" href="@Url.Action("InsertCollaboratorPage", "Home", new { companyId = Model.Company.CompanyId })">Novo Funcionario</a>
+    <a class="btn btn-info" href="@Url.Action("InsertPositionPage", "Home")">Novo Cargo</a>
+</div>
 

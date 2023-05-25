@@ -72,6 +72,8 @@ namespace ManageCollaborator.Repository
                 Company company = GetCompanyById(companyId);
 
                 dbContext.Company.Remove(company);
+
+                dbContext.SaveChanges();
             }
         }
         public List<Company> GetCompanies()
