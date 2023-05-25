@@ -245,12 +245,12 @@ namespace ManageCollaborator.Controllers
 
         public IActionResult UpdateCollaboratorPage()
         {
-            return View();
+            return RedirectToAction("ManageCompanyHome");
         }
 
         public IActionResult InsertPositionPage()
         {
-            return View();
+            return RedirectToAction("ManageCompanyHome");
         }
 
 
